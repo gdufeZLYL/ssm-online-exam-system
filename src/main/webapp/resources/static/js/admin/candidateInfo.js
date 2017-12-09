@@ -1,5 +1,12 @@
 //添加考生信息模态款触发
 function addStuAction() {
+    //清空输入框
+    $('#txt_add_sno').val('');
+    $('#txt_add_sname').val('');
+    $('#txt_add_icard').val('');
+    $('#txt_add_pwd').val('');
+    $('#txt_add_profess').val('');
+    $('#txt_add_cname').val('');
     $('#addStuModel').modal("show");
 }
 
@@ -8,7 +15,7 @@ function addStudent() {
     var studentId = $('#txt_add_sno').val();
     var studentName = $('#txt_add_sname').val();
     var gender = '';
-    if ($('#txt_add_gender_man').checked) {
+    if ($('#txt_add_gender_man').is(":checked")) {
         gender = '男';
     } else {
         gender = '女';
@@ -51,6 +58,12 @@ function addStudent() {
                 if (result.success == true) {
                     $('#addStuModel').modal("hide");
                     toastr.success('添加成功!');
+                    //添加成功刷新页面
+                    // var studentId = $('#txt_studentId').val();
+                    // var studentName = $('#txt_studentName').val();
+                    // var className = $('#txt_className').val();
+                    // window.location.href = '/exam/admin/candidates?page='+currPage+'&sno='+studentId+'&name='+studentName+'&cname='+className;
+                    window.location.reload();
                 } else {
                     toastr.error('添加失败o(╥﹏╥)o!');
                 }
@@ -96,7 +109,7 @@ function updateStudent() {
     var studentId = $('#txt_update_sno').val();
     var studentName = $('#txt_update_sname').val();
     var gender = '';
-    if ($('#txt_update_gender_man').checked) {
+    if ($('#txt_update_gender_man').is(":checked")) {
         gender = '男';
     } else {
         gender = '女';
@@ -140,6 +153,12 @@ function updateStudent() {
                 if (result.success == true) {
                     $('#addStuModel').modal("hide");
                     toastr.success('更改成功!');
+                    //更改成功刷新页面
+                    // var studentId = $('#txt_studentId').val();
+                    // var studentName = $('#txt_studentName').val();
+                    // var className = $('#txt_className').val();
+                    // window.location.href = '/exam/admin/candidates?page='+currPage+'&sno='+studentId+'&name='+studentName+'&cname='+className;
+                    window.location.reload();
                 } else {
                     toastr.error('更改失败o(╥﹏╥)o!');
                 }
@@ -170,6 +189,12 @@ function delStudent() {
             if (result.success == true) {
                 $('#delStuModal').modal("hide");
                 toastr.success('删除成功!');
+                //删除成功刷新页面
+                // var studentId = $('#txt_studentId').val();
+                // var studentName = $('#txt_studentName').val();
+                // var className = $('#txt_className').val();
+                // window.location.href = '/exam/admin/candidates?page='+currPage+'&sno='+studentId+'&name='+studentName+'&cname='+className;
+                window.location.reload();
             } else {
                 $('#delStuModal').modal("hide");
                 toastr.error('删除失败o(╥﹏╥)o!');

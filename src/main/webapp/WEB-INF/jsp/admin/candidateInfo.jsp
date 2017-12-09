@@ -240,7 +240,7 @@
                     确定要删除该考生吗？
                 </div>
                 <div class='modal-footer ' style=''>
-                    <button class='btn btn-success' id='delStuConfirm' >确定</button>
+                    <button class='btn btn-success' id='delStuConfirm' onclick="delStudent()">确定</button>
                     <button class='btn btn-danger' data-dismiss='modal'>取消</button>
                 </div>
             </div>
