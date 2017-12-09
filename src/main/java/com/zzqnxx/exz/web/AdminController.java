@@ -59,7 +59,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    //第几页成绩列表
+    //第几页考生信息列表
     @RequestMapping(value="/candidates", method= RequestMethod.GET)
     public ModelAndView candidates(HttpServletRequest request) {
         //获取参数
@@ -67,10 +67,6 @@ public class AdminController {
         String sno = request.getParameter("sno");
         String name = request.getParameter("name");
         String cname = request.getParameter("cname");
-//        System.out.println("page = " + page);
-//        System.out.println("sno = " + sno);
-//        System.out.println("name = " + name);
-//        System.out.println("cname = " + cname);
 
         String identity = (String) session.getAttribute(Penguin.CURRENT_IDENTITY);
         ModelAndView modelAndView = new ModelAndView();
@@ -113,6 +109,70 @@ public class AdminController {
         modelAndView.setViewName("admin/candidateInfo");
         return modelAndView;
     }
+
+    //第几页成绩信息列表
+    @RequestMapping(value="/grades", method= RequestMethod.GET)
+    public ModelAndView grades(HttpServletRequest request) {
+        //获取参数
+        String page = request.getParameter("page"); //当前第几页
+        String sno = request.getParameter("sno");   //考生学号
+        String name = request.getParameter("name"); //考生姓名
+        String cname = request.getParameter("cname");   //班级名称
+//        String pname = request.getParameter("pname");   //专业名称
+        String ename = request.getParameter("ename");   //试卷名称
+
+        String identity = (String) session.getAttribute(Penguin.CURRENT_IDENTITY);
+        ModelAndView modelAndView = new ModelAndView();
+        if (identity == null) {
+            modelAndView.setViewName("accounts/loginAdmin");
+            return modelAndView;
+        } else if (!Penguin.IDENTITY_TEACHER.equals(identity)) {
+            Student student = (Student) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+            JSONObject stuJson = JSONObject.fromObject(student);
+            modelAndView.addObject("student", "'"+stuJson.toString()+"'");
+            modelAndView.setViewName("students/home");
+            return modelAndView;
+        }
+        Teacher teacher = (Teacher) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+        if (teacher != null) {
+            JSONObject teaJson = JSONObject.fromObject(teacher);
+            modelAndView.addObject("admin", "'"+teaJson.toString()+"'");
+        }
+        if (StringUtils.isNotEmpty(page)) {
+            modelAndView.addObject("page", page);
+        } else {
+            modelAndView.addObject("page", 1);
+        }
+        if (StringUtils.isNotEmpty(sno)) {
+            modelAndView.addObject("sno", "'"+sno+"'");
+        } else {
+            modelAndView.addObject("sno", "''");
+        }
+        if (StringUtils.isNotEmpty(name)) {
+            modelAndView.addObject("name", "'"+name+"'");
+        } else {
+            modelAndView.addObject("name", "''");
+        }
+        if (StringUtils.isNotEmpty(cname)) {
+            modelAndView.addObject("cname", "'"+cname+"'");
+        } else {
+            modelAndView.addObject("cname", "''");
+        }
+//        if (StringUtils.isNotEmpty(pname)) {
+//            modelAndView.addObject("pname", "'"+pname+"'");
+//        } else {
+//            modelAndView.addObject("pname", "''");
+//        }
+        if (StringUtils.isNotEmpty(ename)) {
+            modelAndView.addObject("ename", "'"+ename+"'");
+        } else {
+            modelAndView.addObject("ename", "''");
+        }
+        modelAndView.setViewName("admin/gradeInfo");
+        return modelAndView;
+    }
+
+
 
     //获取考生信息列表
     @RequestMapping(value="/api/getStudentList", method= RequestMethod.POST)

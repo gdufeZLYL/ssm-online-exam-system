@@ -90,7 +90,7 @@
                         console.log($('#inputReb').is(":checked"));
                         if ($('#inputReb').is(":checked")) {
                             console.log('remember me!')
-                            setCookie("stuAccount", username+'|'+password, 12);
+                            setCookie("stuAccount", username+'|'+password, 24*60);
                         }
                         toastr.success('登录成功(*^▽^*)');
                         window.location.href = "/exam/student/index";

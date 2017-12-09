@@ -76,11 +76,11 @@
                         console.log($('#inputReb').is(":checked"));
                         if ($('#inputReb').is(":checked")) {
                             console.log('remember me!')
-                            setCookie("adminAccount", username+'|'+password, 12);
+                            setCookie("adminAccount", username+'|'+password, 24*60);
                         }
                         toastr.success('登录成功(*^▽^*)');
                         //todo 跳转到管理员首页
-
+                        window.location.href = '/exam/admin/grades';
                     } else {
                         toastr.error(data.message);
                     }
