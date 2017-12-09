@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="test_onlineexam@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="test_onlineexam">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="ssmdemo"/>
+    <schema id="7" parent="1" name="sys"/>
+    <schema id="8" parent="1" name="test_easymath"/>
+    <table id="9" parent="2" name="t_exam_grade"/>
+    <table id="10" parent="2" name="t_exam_paper"/>
+    <table id="11" parent="2" name="t_exam_post"/>
+    <table id="12" parent="2" name="t_exam_student"/>
+    <table id="13" parent="2" name="t_exam_subject"/>
+    <table id="14" parent="2" name="t_exam_teacher"/>
+    <column id="15" parent="9" name="id">
+      <Position>1</Position>
+      <Comment>主键ID</Comment>
+      <DataType>int(8)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="16" parent="9" name="s_id">
+      <Position>2</Position>
+      <Comment>学生ID</Comment>
+      <DataType>int(8)|0</DataType>
+    </column>
+    <column id="17" parent="9" name="paper_id">
+      <Position>3</Position>
+      <Comment>试卷ID</Comment>
+      <DataType>int(8)|0</DataType>
+    </column>
+    <column id="18" parent="9" name="score">
+      <Position>4</Position>
+      <Comment>总分</Comment>
+      <DataType>int(4)|0</DataType>
+    </column>
+    <column id="19" parent="9" name="single_score">
+      <Position>5</Position>
+      <Comment>单选题得分</Comment>
+      <DataType>int(4)|0</DataType>
+    </column>
+    <column id="20" parent="9" name="mul_score">
+      <Position>6</Position>
+      <Comment>多选题得分</Comment>
+      <DataType>int(4)|0</DataType>
+    </column>
+    <column id="21" parent="9" name="other_score">
+      <Position>7</Position>
+      <Comment>简答题得分</Comment>
+      <DataType>int(4)|0</DataType>
+    </column>
+    <column id="22" parent="9" name="create_time">
+      <Position>8</Position>
+      <DataType>timestamp|0</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="23" parent="9" name="answer_json">
+      <Position>9</Position>
+      <Comment>考生答案</Comment>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="24" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="25" parent="10" name="id">
+      <Position>1</Position>
+      <Comment>主键ID</Comment>
+      <DataType>int(8)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="26" parent="10" name="paper_name">
+      <Position>2</Position>
+      <Comment>试卷名称</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="27" parent="10" name="create_time">
+      <Position>3</Position>
+      <DataType>timestamp|0</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <key id="28" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="29" parent="11" name="id">
+      <Position>1</Position>
+      <Comment>主键ID</Comment>
+      <DataType>int(8)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="30" parent="11" name="title">
+      <Position>2</Position>
+      <Comment>公告标题</Comment>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="31" parent="11" name="content">
+      <Position>3</Position>
+      <Comment>公告内容</Comment>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="32" parent="11" name="author">
+      <Position>4</Position>
+      <Comment>发表人姓名</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="33" parent="11" name="create_time">
+      <Position>5</Position>
+      <Comment>创建时间</Comment>
+      <DataType>timestamp|0</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <key id="34" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="35" parent="12" name="id">
+      <Position>1</Position>
+      <Comment>主键ID</Comment>
+      <DataType>int(8)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="36" parent="12" name="student_id">
+      <Position>2</Position>
+      <Comment>学生账号</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="37" parent="12" name="student_name">
+      <Position>3</Position>
+      <Comment>名字</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="38" parent="12" name="gender">
+      <Position>4</Position>
+      <Comment>性别</Comment>
+      <DataType>varchar(4)|0</DataType>
+    </column>
+    <column id="39" parent="12" name="id_card">
+      <Position>5</Position>
+      <Comment>身份证</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="40" parent="12" name="password">
+      <Position>6</Position>
+      <Comment>密码</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="41" parent="12" name="profession">
+      <Position>7</Position>
+      <Comment>专业</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="42" parent="12" name="class_name">
+      <Position>8</Position>
+      <Comment>班级名称</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="43" parent="12" name="create_time">
+      <Position>9</Position>
+      <DataType>timestamp|0</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <key id="44" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="45" parent="13" name="id">
+      <Position>1</Position>
+      <Comment>主键ID</Comment>
+      <DataType>int(8)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="46" parent="13" name="title">
+      <Position>2</Position>
+      <Comment>试卷题目</Comment>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="47" parent="13" name="option_a">
+      <Position>3</Position>
+      <Comment>A选项</Comment>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="48" parent="13" name="option_b">
+      <Position>4</Position>
+      <Comment>B选项</Comment>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="49" parent="13" name="option_c">
+      <Position>5</Position>
+      <Comment>C选项</Comment>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="50" parent="13" name="option_d">
+      <Position>6</Position>
+      <Comment>D选项</Comment>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="51" parent="13" name="answer">
+      <Position>7</Position>
+      <Comment>答案:ABCD</Comment>
+      <DataType>varchar(8)|0</DataType>
+    </column>
+    <column id="52" parent="13" name="parse">
+      <Position>8</Position>
+      <Comment>答案解析</Comment>
+      <DataType>varchar(150)|0</DataType>
+    </column>
+    <column id="53" parent="13" name="title_type">
+      <Position>9</Position>
+      <Comment>题目类型:0表示单选题,1表示多选题,2表示简答题</Comment>
+      <DataType>int(4)|0</DataType>
+    </column>
+    <column id="54" parent="13" name="paper_id">
+      <Position>10</Position>
+      <Comment>所属试卷</Comment>
+      <DataType>int(8)|0</DataType>
+    </column>
+    <column id="55" parent="13" name="create_time">
+      <Position>11</Position>
+      <DataType>timestamp|0</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <index id="56" parent="13" name="paper_id">
+      <ColNames>paper_id</ColNames>
+    </index>
+    <key id="57" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="58" parent="14" name="id">
+      <Position>1</Position>
+      <Comment>主键ID</Comment>
+      <DataType>int(8)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="59" parent="14" name="teacher_id">
+      <Position>2</Position>
+      <Comment>教师账号</Comment>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="60" parent="14" name="password">
+      <Position>3</Position>
+      <Comment>密码</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="61" parent="14" name="create_time">
+      <Position>4</Position>
+      <DataType>timestamp|0</DataType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="62" parent="14" name="teacher_name">
+      <Position>5</Position>
+      <Comment>教师姓名</Comment>
+      <DataType>varchar(20)|0</DataType>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <key id="63" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
