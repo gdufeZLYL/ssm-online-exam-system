@@ -69,7 +69,7 @@
             <%--<input type="text" class="form-control" id="txt_professName" placeholder="专业名称">--%>
             <label for="txt_paperName">试卷：</label>
             <input type="text" class="form-control" id="txt_paperName" placeholder="考试试卷名称">
-            <button type="button" class="btn btn-primary">查询</button>
+            <button type="button" class="btn btn-primary" onclick="queryGradeAction()">查询</button>
         </div>
     </div>
     <div class="row" style="margin-bottom: 10px;">
@@ -79,6 +79,7 @@
     </div>
     <div class="row">
         <table class="table table-hover table-bordered table-striped" id="t_gradeList">
+            <!--
             <thead>
                 <tr>
                     <th>#</th>
@@ -87,6 +88,7 @@
                     <th>班级</th>
                     <th>专业</th>
                     <th>试卷</th>
+                    <th>考试时间</th>
                     <th>得分</th>
                 </tr>
             </thead>
@@ -98,72 +100,11 @@
                     <th>14级软件工程2班</th>
                     <th>软件工程</th>
                     <th>广东财经大学概率论试题1</th>
-                    <th>80</th>
-                </tr>
-                <tr>
-                    <th>1</th>
-                    <th>14251104201</th>
-                    <th>李一</th>
-                    <th>14级软件工程2班</th>
-                    <th>软件工程</th>
-                    <th>广东财经大学概率论试题1</th>
-                    <th>80</th>
-                </tr>
-                <tr>
-                    <th>1</th>
-                    <th>14251104201</th>
-                    <th>李一</th>
-                    <th>14级软件工程2班</th>
-                    <th>软件工程</th>
-                    <th>广东财经大学概率论试题1</th>
-                    <th>80</th>
-                </tr>
-                <tr>
-                    <th>1</th>
-                    <th>14251104201</th>
-                    <th>李一</th>
-                    <th>14级软件工程2班</th>
-                    <th>软件工程</th>
-                    <th>广东财经大学概率论试题1</th>
-                    <th>80</th>
-                </tr>
-                <tr>
-                    <th>1</th>
-                    <th>14251104201</th>
-                    <th>李一</th>
-                    <th>14级软件工程2班</th>
-                    <th>软件工程</th>
-                    <th>广东财经大学概率论试题1</th>
-                    <th>80</th>
-                </tr>
-                <tr>
-                    <th>1</th>
-                    <th>14251104201</th>
-                    <th>李一</th>
-                    <th>14级软件工程2班</th>
-                    <th>软件工程</th>
-                    <th>广东财经大学概率论试题1</th>
-                    <th>80</th>
-                </tr>
-                <tr>
-                    <th>1</th>
-                    <th>14251104201</th>
-                    <th>李一</th>
-                    <th>14级软件工程2班</th>
-                    <th>软件工程</th>
-                    <th>广东财经大学概率论试题1</th>
-                    <th>80</th>
-                </tr>
-                <tr>
-                    <th>1</th>
-                    <th>14251104201</th>
-                    <th>李一</th>
-                    <th>14级软件工程2班</th>
-                    <th>软件工程</th>
-                    <th>广东财经大学概率论试题1</th>
+                    <th>2017-12-09 22:22:22</th>
                     <th>80</th>
                 </tr>
             </tbody>
+            -->
         </table>
     </div>
     <div class="row">
@@ -201,8 +142,7 @@
         $('#txt_studentName').val(name);
         $('#txt_className').val(cname);
         $('#txt_paperName').val(ename);
-        //todo 初始化数据
-        //getStudentPageInfo();
+        getAllGradePageInfo();
     });
 
 
