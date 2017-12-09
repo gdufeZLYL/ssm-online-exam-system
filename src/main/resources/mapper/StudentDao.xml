@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzqnxx.exz.dao.StudentDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <insert id="insertStudent" parameterType="com.zzqnxx.exz.entity.Student">
+        <!-- 具体的sql -->
+        INSERT INTO t_exam_student(student_id, student_name, gender, id_card, password, profession, class_name)
+        VALUES
+        (#{student.studentId}, #{student.studentName}, #{student.gender}, #{student.idCard}, #{student.password}, #{student.profession}, #{student.className})
+    </insert>
+
+    <delete id="deleteStudent">
+        DELETE FROM t_exam_student
+        WHERE id = #{id}
+    </delete>
+
+    <update id="updatePassword">
+        UPDATE t_exam_student
+        SET
+        password = #{password}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateStudent" parameterType="com.zzqnxx.exz.entity.Student">
+        UPDATE t_exam_student
+        SET
+        student_id = #{student.studentId}, student_name = #{student.studentName},
+        gender = #{student.gender}, id_card = #{student.idCard}, password = #{student.password},
+        profession = #{student.profession}, class_name = #{student.className}
+        WHERE
+        id = #{student.id}
+    </update>
+
+    <select id="selectStudentByStuIdAndPwd" resultType="com.zzqnxx.exz.entity.Student">
+        SELECT
+        id, student_id, student_name, gender, id_card, password, profession, class_name, create_time
+        FROM t_exam_student
+        where
+        student_id = #{studentId} AND password = #{password}
+    </select>
+
+    <select id="selectStudentByStuId" resultType="com.zzqnxx.exz.entity.Student">
+        SELECT
+        id, student_id, student_name, gender, id_card, password, profession, class_name, create_time
+        FROM t_exam_student
+        where
+        student_id = #{studentId}
+    </select>
+
+    <select id="queryAllCount" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM t_exam_student
+        WHERE 1 = 1
+        <if test="studentId != null and studentId != ''">
+            AND student_id = #{studentId}
+        </if>
+        <if test="studentName != null and studentName != ''">
+            AND student_name LIKE CONCAT(CONCAT('%', #{studentName}), '%')
+        </if>
+        <if test="className != null and className != ''">
+            AND class_name = #{className}
+        </if>
+    </select>
+
+    <select id="queryStuByStuIdAndStuNameAndClassName" resultType="com.zzqnxx.exz.entity.Student">
+        SELECT
+        id, student_id, student_name, gender, id_card, password, profession, class_name, create_time
+        FROM t_exam_student
+        WHERE 1 = 1
+        <if test="studentId != null and studentId != ''">
+            AND student_id = #{studentId}
+        </if>
+        <if test="studentName != null and studentName != ''">
+            AND student_name LIKE CONCAT(CONCAT('%', #{studentName}), '%')
+        </if>
+        <if test="className != null and className != ''">
+            AND class_name = #{className}
+        </if>
+        ORDER BY student_id
+        LIMIT #{offset}, #{limit}
+    </select>
+</mapper>

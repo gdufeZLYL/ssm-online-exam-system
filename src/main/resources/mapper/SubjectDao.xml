@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzqnxx.exz.dao.SubjectDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <insert id="insertSubject" parameterType="com.zzqnxx.exz.entity.Subject">
+        <!-- 具体的sql -->
+        INSERT INTO t_exam_subject(title, option_a, option_b, option_c, option_d,
+        answer, parse, title_type, paper_id)
+        VALUES
+        (#{subject.title}, #{subject.optionA}, #{subject.optionB}, #{subject.optionC},
+        #{subject.optionD}, #{subject.answer}, #{subject.parse}, #{subject.titleType},
+        #{subject.paperId})
+    </insert>
+
+    <delete id="deleteSubject">
+        DELETE FROM t_exam_subject
+        WHERE id = #{id}
+    </delete>
+
+    <update id="updateSubject" parameterType="com.zzqnxx.exz.entity.Subject">
+        UPDATE t_exam_subject
+        SET
+        title = #{subject.title}, option_a = #{subject.optionA}, option_b = #{subject.optionB},
+        option_c = #{subject.optionC}, option_d = #{subject.optionD}, answer = #{subject.answer},
+        parse = #{subject.parse}, title_type = #{subject.titleType}, paper_id = #{subject.paperId}
+        WHERE
+        id = #{subject.id}
+    </update>
+
+    <select id="queryAllCount" resultType="int">
+        SELECT
+        count(*)
+        FROM t_exam_subject
+    </select>
+
+    <select id="queryAll" resultType="com.zzqnxx.exz.entity.Subject">
+        SELECT
+        a.id, a.title, a.option_a, a.option_b, a.option_c, a.option_d,
+        a.answer, a.parse, a.title_type, a.paper_id, a.create_time,
+        b.paper_name "paper.paperName"
+        FROM t_exam_subject a, t_exam_paper b where a.paper_id = b.id
+        ORDER BY a.id
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="queryByPaperId2TitleType" resultType="com.zzqnxx.exz.entity.Subject">
+        SELECT
+        id, title, option_a, option_b, option_c, option_d, answer, parse, title_type, paper_id
+        FROM t_exam_subject
+        WHERE paper_id = #{paperId} AND title_type = #{titleType}
+    </select>
+
+    <select id="queryCountByTitle" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM t_exam_subject
+        where title LIKE CONCAT(CONCAT('%', #{title}), '%')
+    </select>
+
+    <select id="queryByTitle" resultType="com.zzqnxx.exz.entity.Subject">
+        SELECT
+        a.id, a.title, a.option_a, a.option_b, a.option_c, a.option_d,
+        a.answer, a.parse, a.title_type, a.paper_id, a.create_time,
+        b.paper_name "paper.paperName"
+        FROM t_exam_subject a, t_exam_paper b
+        where title LIKE CONCAT(CONCAT('%', #{title}), '%') AND a.paper_id = b.id
+        ORDER BY a.id
+        LIMIT #{offset}, #{limit}
+    </select>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzqnxx.exz.dao.PostDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <insert id="insertPost" parameterType="com.zzqnxx.exz.entity.Post">
+        <!-- 具体的sql -->
+        INSERT INTO t_exam_post(title, content, author)
+        VALUES
+        (#{post.title}, #{post.content}, #{post.author})
+    </insert>
+
+    <update id="updatePost" parameterType="com.zzqnxx.exz.entity.Post">
+        UPDATE t_exam_post
+        SET
+        title = #{post.title}, content = #{post.content}, author = #{post.author}
+        WHERE
+        id = #{post.id}
+    </update>
+
+    <select id="queryAllPost" resultType="com.zzqnxx.exz.entity.Post">
+        SELECT
+        *
+        FROM t_exam_post
+        ORDER BY create_time DESC
+    </select>
+</mapper>

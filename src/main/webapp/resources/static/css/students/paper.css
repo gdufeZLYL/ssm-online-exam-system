@@ -1,0 +1,59 @@
+body{
+    overflow: scroll;
+}
+.layui-container div.exam_time_head {
+    height: 50px;
+    padding-top: 20px;
+}
+.layui-container div.exam_time_head div {
+    text-align: center;
+}
+.layui-container div.exam_title {
+    font-size: 30px;
+    font-weight: bolder;
+    border: 1px solid #FFFFFF;
+    height: 50px;
+    padding-top: 15px;
+}
+.layui-container div.exam_title div {
+    text-align: center;
+}
+.layui-container div.exam_title_remarks {
+    font-size: 20px;
+    border: 1px solid #FFFFFF;
+    height: 25px;
+    padding-top: 3px;
+}
+.layui-container div.exam_title_remarks div {
+    text-align: right;
+}
+.layui-container div.exam_single_choice_head {
+    font-size: 20px;
+    font-weight: bolder;
+    border: 1px solid #FFFFFF;
+    height: 25px;
+    padding-top: 3px;
+}
+.layui-container div.exam_single_choice_head div {
+    background-color: #9B9B9B;
+}
+.layui-container div.exam_double_choice_head {
+    font-size: 20px;
+    font-weight: bolder;
+    border: 1px solid #FFFFFF;
+    height: 25px;
+    padding-top: 3px;
+}
+.layui-container div.exam_double_choice_head div {
+    background-color: #9B9B9B;
+}
+/*
+.layui-container div form table tr td.exam_single_choice_head {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #0C0C0C;
+    border: 1px solid #FFFFFF;
+    height: 20px;
+    background-color: #9B9B9B;
+}
+*/

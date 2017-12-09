@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzqnxx.exz.dao.GradeDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <insert id="insertGrade" parameterType="com.zzqnxx.exz.entity.Grade">
+        <!-- 具体的sql -->
+        INSERT INTO t_exam_grade(s_id, paper_id, score, single_score, mul_score, other_score, answer_json)
+        VALUES
+        (#{grade.sId}, #{grade.paperId}, #{grade.score}, #{grade.singleScore},
+        #{grade.mulScore}, #{grade.otherScore}, #{grade.answerJson})
+    </insert>
+
+    <delete id="deleteGrade">
+        DELETE FROM t_exam_grade
+        WHERE id = #{id}
+    </delete>
+
+    <update id="updateGrade" parameterType="com.zzqnxx.exz.entity.Grade">
+        UPDATE t_exam_grade
+        SET
+        s_id = #{grade.sId}, paper_id = #{grade.paperId}, score = #{grade.score},
+        single_score = #{grade.singleScore}, mul_score = #{grade.mulScore},
+        other_score = #{grade.otherScore}, answer_json = #{grade.answerJson}
+        WHERE
+        id = #{grade.id}
+    </update>
+
+    <select id="queryCountBySId" resultType="int">
+        SELECT
+        count(1)
+        FROM t_exam_grade
+        where s_id = #{sId}
+    </select>
+
+    <select id="queryBySId" resultType="com.zzqnxx.exz.entity.Grade">
+        SELECT
+        a.id, a.s_id, a.paper_id, a.score, a.single_score, a.mul_score,
+        a.other_score, a.create_time, a.answer_json, b.paper_name "paper.paperName"
+        FROM t_exam_grade a, t_exam_paper b
+        WHERE s_id = #{sId} AND a.paper_id = b.id
+        ORDER BY a.create_time desc
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="queryCountByPaperId" resultType="int">
+        SELECT
+        count(1)
+        FROM t_exam_grade
+        where paper_id = #{paperId}
+    </select>
+
+    <select id="queryByPaperId" resultType="com.zzqnxx.exz.entity.Grade">
+        SELECT
+        a.id, a.s_id, a.paper_id, a.score, a.single_score, a.mul_score,
+        a.other_score, a.create_time, a.answer_json, b.student_name "student.studentName",
+        b.profession "student.profession"
+        FROM t_exam_grade a, t_exam_student b
+        WHERE a.paper_id = #{paperId} AND a.s_id = b.id
+        ORDER BY a.create_time desc
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="queryCountByPaperId2StuId2StuName" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM t_exam_grade a, t_exam_student b
+        WHERE a.paper_id = #{paperId} AND a.s_id = b.id
+        <if test="studentId != null and studentId != ''">
+            AND b.student_id = #{studentId}
+        </if>
+        <if test="studentName != null and studentName != ''">
+            AND b.student_name LIKE CONCAT(CONCAT('%', #{studentName}), '%')
+        </if>
+    </select>
+
+    <select id="queryByPaperId2StuId2StuName" resultType="com.zzqnxx.exz.entity.Grade">
+        SELECT
+        a.id, a.s_id, a.paper_id, a.score, a.single_score, a.mul_score,
+        a.other_score, a.create_time, a.answer_json, b.student_name "student.studentName",
+        b.profession "student.profession"
+        FROM t_exam_grade a, t_exam_student b
+        WHERE a.paper_id = #{paperId} AND a.s_id = b.id
+        <if test="studentId != null and studentId != ''">
+            AND b.student_id = #{studentId}
+        </if>
+        <if test="studentName != null and studentName != ''">
+            AND b.student_name LIKE CONCAT(CONCAT('%', #{studentName}), '%')
+        </if>
+        ORDER BY a.create_time desc
+        LIMIT #{offset}, #{limit}
+    </select>
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzqnxx.exz.dao.PaperDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <insert id="insertPaper" parameterType="com.zzqnxx.exz.entity.Paper">
+        <!-- 具体的sql -->
+        INSERT INTO t_exam_paper(paper_name)
+        VALUES
+        (#{paper.paperName})
+    </insert>
+
+    <delete id="deletePaper">
+        DELETE FROM t_exam_paper
+        WHERE id = #{id}
+    </delete>
+
+    <update id="updatePaper">
+        UPDATE t_exam_paper
+        SET
+        paper_name = #{paperName}
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="queryAllCount" resultType="int">
+        SELECT
+        count(*)
+        FROM t_exam_paper
+    </select>
+
+    <select id="queryAll" resultType="com.zzqnxx.exz.entity.Paper">
+        SELECT
+        id, paper_name, create_time
+        FROM t_exam_paper
+        ORDER BY id
+        LIMIT #{offset}, #{limit}
+    </select>
+</mapper>
