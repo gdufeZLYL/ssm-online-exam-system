@@ -4,6 +4,7 @@ import com.zzqnxx.exz.common.Penguin;
 import com.zzqnxx.exz.dto.AjaxResult;
 import com.zzqnxx.exz.entity.Student;
 import com.zzqnxx.exz.entity.Teacher;
+import com.zzqnxx.exz.service.GradeService;
 import com.zzqnxx.exz.service.StudentService;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
@@ -24,6 +25,8 @@ public class AdminController {
     private static Log LOG = LogFactory.getLog(AccountController.class);
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private GradeService gradeService;
 
     @Autowired
     private HttpSession session;
@@ -172,7 +175,24 @@ public class AdminController {
         return modelAndView;
     }
 
-
+    //获取考生成绩列表
+    @RequestMapping(value="/api/getGradeList", method= RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult getGradeList(@RequestParam("studentId") String studentId, @RequestParam("studentName") String studentName,
+                                   @RequestParam("className") String className, @RequestParam("paperName") String paperName,
+                                   @RequestParam("page") int page, @RequestParam("num") int num) {
+        LOG.info("page: " + page);
+        LOG.info("num: " + num);
+        AjaxResult ajaxResult = new AjaxResult();
+        try {
+            Map<String, Object> data = gradeService.getAllGradeList(studentId, studentName, className,
+                    paperName, page, num);
+            return new AjaxResult().setData(data);
+        } catch (Exception e) {
+            LOG.info(e.getMessage(), e);
+        }
+        return new AjaxResult().setMessage("接口调用出错");
+    }
 
     //获取考生信息列表
     @RequestMapping(value="/api/getStudentList", method= RequestMethod.POST)

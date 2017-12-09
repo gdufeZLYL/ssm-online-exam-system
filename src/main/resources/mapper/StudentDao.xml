@@ -78,9 +78,25 @@
             AND student_name LIKE CONCAT(CONCAT('%', #{studentName}), '%')
         </if>
         <if test="className != null and className != ''">
-            AND class_name = #{className}
+            AND class_name LIKE CONCAT(CONCAT('%', #{className}), '%')
         </if>
         ORDER BY student_id
         LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="queryByStuIdAndStuNameAndClassName" resultType="com.zzqnxx.exz.entity.Student">
+        SELECT
+        id, student_id, student_name, gender, id_card, password, profession, class_name, create_time
+        FROM t_exam_student
+        WHERE 1 = 1
+        <if test="studentId != null and studentId != ''">
+            AND student_id = #{studentId}
+        </if>
+        <if test="studentName != null and studentName != ''">
+            AND student_name LIKE CONCAT(CONCAT('%', #{studentName}), '%')
+        </if>
+        <if test="className != null and className != ''">
+            AND class_name LIKE CONCAT(CONCAT('%', #{className}), '%')
+        </if>
     </select>
 </mapper>

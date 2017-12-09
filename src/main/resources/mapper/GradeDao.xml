@@ -91,4 +91,54 @@
         ORDER BY a.create_time desc
         LIMIT #{offset}, #{limit}
     </select>
+
+    <select id="queryCountBySIdsAndPIds" parameterType="java.util.List" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM t_exam_grade
+        WHERE 1 = 1
+        <choose>
+            <when test="sIds != null and sIds.size > 0">
+                AND s_id in
+                <foreach collection="sIds" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND 1 = 0
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="paperIds != null and paperIds.size > 0">
+                AND paper_id in
+                <foreach collection="paperIds" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND 1 = 0
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="queryBySIdsAndPIds" parameterType="java.util.List" resultType="com.zzqnxx.exz.entity.Grade">
+        SELECT
+        *
+        FROM t_exam_grade
+        WHERE 1 = 1
+        <if test="sIds != null and sIds.size > 0">
+            AND s_id in
+            <foreach collection="sIds" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="paperIds != null and paperIds.size > 0">
+            AND paper_id in
+            <foreach collection="paperIds" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        ORDER BY create_time desc
+        LIMIT #{offset}, #{limit}
+    </select>
 </mapper>

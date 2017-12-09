@@ -30,6 +30,13 @@ public interface PaperDao {
     int updatePaper(@Param("id") int id, @Param("paperName") String paperName);
 
     /**
+     * 根据试卷名称获取试卷信息
+     * @param paperName
+     * @return
+     */
+    List<Paper> queryByPaperName(@Param("paperName") String paperName);
+
+    /**
      * 获取试卷数量
      * @return
      */

@@ -71,4 +71,15 @@ public interface StudentDao {
                                                         @Param("className") String className,
                                                         @Param("offset") int offset,
                                                         @Param("limit") int limit);
+
+    /**
+     * 根据学号,姓名,班级名称获取学生信息列表
+     * @param studentId
+     * @param studentName
+     * @param className
+     * @return
+     */
+    List<Student> queryByStuIdAndStuNameAndClassName(@Param("studentId") String studentId,
+                                                        @Param("studentName") String studentName,
+                                                        @Param("className") String className);
 }

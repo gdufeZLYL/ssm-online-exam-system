@@ -82,4 +82,25 @@ public interface GradeDao {
     List<Grade> queryByPaperId2StuId2StuName(@Param("paperId") int paperId, @Param("studentId") String studentId,
                                              @Param("studentName") String studentName, @Param("offset") int offset,
                                              @Param("limit") int limit);
+
+    /**
+     * 根据考生主键ID集合和试卷主键ID集合获取成绩数量
+     * @param sIds
+     * @param paperIds
+     * @return
+     */
+    int queryCountBySIdsAndPIds(@Param("sIds") List<Integer> sIds,
+                              @Param("paperIds") List<Integer> paperIds);
+
+    /**
+     * 根据考生主键ID集合和试卷主键ID集合获取成绩
+     * @param sIds
+     * @param paperIds
+     * @param offset
+     * @param limit
+     * @return
+     */
+    List<Grade> queryBySIdsAndPIds(@Param("sIds") List<Integer> sIds,
+                         @Param("paperIds") List<Integer> paperIds,
+                         @Param("offset") int offset, @Param("limit") int limit);
 }

@@ -24,6 +24,16 @@
         id = #{id}
     </update>
 
+    <select id="queryByPaperName" resultType="com.zzqnxx.exz.entity.Paper">
+        SELECT
+        id, paper_name, create_time
+        FROM t_exam_paper
+        WHERE 1 = 1
+        <if test="paperName != null and paperName != ''">
+            AND t_exam_paper.paper_name LIKE CONCAT(CONCAT('%', #{paperName}), '%')
+        </if>
+    </select>
+
     <select id="queryAllCount" resultType="int">
         SELECT
         count(*)
