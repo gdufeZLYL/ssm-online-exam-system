@@ -31,19 +31,30 @@ public class AdminController {
     //管理员登录页面
     @RequestMapping(value="/login", method= RequestMethod.GET)
     public ModelAndView login() throws Exception {
-        Teacher teacher = (Teacher) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+        String identity = (String) session.getAttribute(Penguin.CURRENT_IDENTITY);
         ModelAndView modelAndView = new ModelAndView();
+        if (identity == null) {
+            modelAndView.setViewName("accounts/loginAdmin");
+            return modelAndView;
+        } else if (!Penguin.IDENTITY_TEACHER.equals(identity)) {
+            Student student = (Student) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+            JSONObject stuJson = JSONObject.fromObject(student);
+            modelAndView.addObject("student", "'"+stuJson.toString()+"'");
+            modelAndView.setViewName("students/home");
+            return modelAndView;
+        }
+        Teacher teacher = (Teacher) session.getAttribute(Penguin.CURRENT_ACCOUNT);
         if (teacher == null) {
             modelAndView.setViewName("accounts/loginAdmin");
         } else {
-//            JSONObject teaJson = JSONObject.fromObject(teacher);
-//            modelAndView.addObject("admin", "'"+teaJson.toString()+"'");
-//            modelAndView.addObject("page", 1);
-//            modelAndView.addObject("sno", "''");
-//            modelAndView.addObject("name", "''");
-//            modelAndView.addObject("cname", "''");
-//            modelAndView.setViewName("admin/candidateInfo");
-            modelAndView.setViewName("accounts/loginAdmin");
+            JSONObject teaJson = JSONObject.fromObject(teacher);
+            modelAndView.addObject("admin", "'"+teaJson.toString()+"'");
+            modelAndView.addObject("page", 1);
+            modelAndView.addObject("sno", "''");
+            modelAndView.addObject("name", "''");
+            modelAndView.addObject("cname", "''");
+            modelAndView.setViewName("admin/candidateInfo");
+//            modelAndView.setViewName("accounts/loginAdmin");
         }
         return modelAndView;
     }
@@ -63,8 +74,14 @@ public class AdminController {
 
         String identity = (String) session.getAttribute(Penguin.CURRENT_IDENTITY);
         ModelAndView modelAndView = new ModelAndView();
-        if (!Penguin.IDENTITY_TEACHER.equals(identity)) {
+        if (identity == null) {
             modelAndView.setViewName("accounts/loginAdmin");
+            return modelAndView;
+        } else if (!Penguin.IDENTITY_TEACHER.equals(identity)) {
+            Student student = (Student) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+            JSONObject stuJson = JSONObject.fromObject(student);
+            modelAndView.addObject("student", "'"+stuJson.toString()+"'");
+            modelAndView.setViewName("students/home");
             return modelAndView;
         }
         Teacher teacher = (Teacher) session.getAttribute(Penguin.CURRENT_ACCOUNT);
