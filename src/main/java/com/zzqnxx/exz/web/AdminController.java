@@ -36,13 +36,14 @@ public class AdminController {
         if (teacher == null) {
             modelAndView.setViewName("accounts/loginAdmin");
         } else {
-            JSONObject teaJson = JSONObject.fromObject(teacher);
-            modelAndView.addObject("admin", "'"+teaJson.toString()+"'");
-            modelAndView.addObject("page", 1);
-            modelAndView.addObject("sno", "''");
-            modelAndView.addObject("name", "''");
-            modelAndView.addObject("cname", "''");
-            modelAndView.setViewName("admin/candidateInfo");
+//            JSONObject teaJson = JSONObject.fromObject(teacher);
+//            modelAndView.addObject("admin", "'"+teaJson.toString()+"'");
+//            modelAndView.addObject("page", 1);
+//            modelAndView.addObject("sno", "''");
+//            modelAndView.addObject("name", "''");
+//            modelAndView.addObject("cname", "''");
+//            modelAndView.setViewName("admin/candidateInfo");
+            modelAndView.setViewName("accounts/loginAdmin");
         }
         return modelAndView;
     }

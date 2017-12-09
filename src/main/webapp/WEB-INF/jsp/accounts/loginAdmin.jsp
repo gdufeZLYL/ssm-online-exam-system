@@ -16,9 +16,8 @@
     <!-- 引入toastr -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 </head>
-<body>
+<body style="background-color: #EEEEEE">
     <div class="container">
-
         <form class="form-signin">
             <h2 class="form-signin-heading">管理员登录</h2>
             <label for="inputUsername" class="sr-only">账号</label>
@@ -30,7 +29,7 @@
                     <input type="checkbox" id="inputReb" value="remember-me"> 记住我
                 </label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="loginAction()">登录</button>
+            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="loginAction()">登录</button>
         </form>
     </div> <!-- /container -->
 <!-- 引入JQuery -->
@@ -46,6 +45,7 @@
     $(document).ready(function () {
         //读取cookie
         var adminAccount = getCookie('adminAccount');
+        console.log('adminAccount = ' + adminAccount);
         var elements = adminAccount.split('|');
         if (elements.length == 2) {
             var username = elements[0];
@@ -75,7 +75,9 @@
                     console.log(data);
                     if (data.success == true) {
                         //缓存cookie
-                        if ($('#inputReb').checked) {
+                        console.log($('#inputReb').is(":checked"));
+                        if ($('#inputReb').is(":checked")) {
+                            console.log('remember me!')
                             setCookie("adminAccount", username+'|'+password, 12);
                         }
                         toastr.success('登录成功(*^▽^*)');
