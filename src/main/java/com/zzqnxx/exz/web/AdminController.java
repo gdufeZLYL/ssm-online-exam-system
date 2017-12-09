@@ -60,17 +60,17 @@ public class AdminController {
 //        System.out.println("name = " + name);
 //        System.out.println("cname = " + cname);
 
-//        String identity = (String) session.getAttribute(Penguin.CURRENT_IDENTITY);
+        String identity = (String) session.getAttribute(Penguin.CURRENT_IDENTITY);
         ModelAndView modelAndView = new ModelAndView();
-//        if (!Penguin.IDENTITY_TEACHER.equals(identity)) {
-//            modelAndView.setViewName("accounts/loginAdmin");
-//            return modelAndView;
-//        }
-//        Teacher teacher = (Teacher) session.getAttribute(Penguin.CURRENT_ACCOUNT);
-//        if (teacher != null) {
-//            JSONObject teaJson = JSONObject.fromObject(teacher);
-//            modelAndView.addObject("admin", "'"+teaJson.toString()+"'");
-//        }
+        if (!Penguin.IDENTITY_TEACHER.equals(identity)) {
+            modelAndView.setViewName("accounts/loginAdmin");
+            return modelAndView;
+        }
+        Teacher teacher = (Teacher) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+        if (teacher != null) {
+            JSONObject teaJson = JSONObject.fromObject(teacher);
+            modelAndView.addObject("admin", "'"+teaJson.toString()+"'");
+        }
         if (StringUtils.isNotEmpty(page)) {
             modelAndView.addObject("page", page);
         } else {
