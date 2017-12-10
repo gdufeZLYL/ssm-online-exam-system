@@ -80,7 +80,7 @@
                         }
                         toastr.success('登录成功(*^▽^*)');
                         //todo 跳转到管理员首页
-                        window.location.href = '/exam/admin/grades';
+                        window.location.href = '/exam/admin/subjects';
                     } else {
                         toastr.error(data.message);
                     }

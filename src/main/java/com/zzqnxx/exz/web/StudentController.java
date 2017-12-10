@@ -152,12 +152,12 @@ public class StudentController {
             int score = 0, singleScore = 0, mulScore = 0;
             for (Subject subject : sgSubjects) {
                 if (subject.getAnswer().equals(answerJson.getString(""+subject.getId()))) {
-                    singleScore += 5;
+                    singleScore += Penguin.SINGLE_SCORE;
                 }
             }
             for (Subject subject : dbSubjects) {
                 if (subject.getAnswer().equals(answerJson.getString(""+subject.getId()))) {
-                    mulScore += 10;
+                    mulScore += Penguin.MUL_SCORE;
                 }
             }
             score = singleScore + mulScore;

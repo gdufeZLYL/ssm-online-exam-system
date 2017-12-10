@@ -53,12 +53,56 @@ public class AdminController {
             JSONObject teaJson = JSONObject.fromObject(teacher);
             modelAndView.addObject("admin", "'"+teaJson.toString()+"'");
             modelAndView.addObject("page", 1);
-            modelAndView.addObject("sno", "''");
-            modelAndView.addObject("name", "''");
-            modelAndView.addObject("cname", "''");
-            modelAndView.setViewName("admin/candidateInfo");
+            modelAndView.addObject("sname", "''");
+            modelAndView.addObject("pname", "''");
+            modelAndView.setViewName("admin/subjectInfo");
+//            modelAndView.setViewName("admin/candidateInfo");
 //            modelAndView.setViewName("accounts/loginAdmin");
         }
+        return modelAndView;
+    }
+
+    //第几页题目信息列表
+    @RequestMapping(value="/subjects", method= RequestMethod.GET)
+    public ModelAndView subjects(HttpServletRequest request) {
+        //获取参数
+        String page = request.getParameter("page");
+        String sname = request.getParameter("sname");
+        String pname = request.getParameter("pname");
+
+        String identity = (String) session.getAttribute(Penguin.CURRENT_IDENTITY);
+        ModelAndView modelAndView = new ModelAndView();
+        if (identity == null) {
+            modelAndView.setViewName("accounts/loginAdmin");
+            return modelAndView;
+        } else if (!Penguin.IDENTITY_TEACHER.equals(identity)) {
+            Student student = (Student) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+            JSONObject stuJson = JSONObject.fromObject(student);
+            modelAndView.addObject("student", "'"+stuJson.toString()+"'");
+            modelAndView.setViewName("students/home");
+            return modelAndView;
+        }
+        Teacher teacher = (Teacher) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+        if (teacher != null) {
+            JSONObject teaJson = JSONObject.fromObject(teacher);
+            modelAndView.addObject("admin", "'"+teaJson.toString()+"'");
+        }
+        if (StringUtils.isNotEmpty(page)) {
+            modelAndView.addObject("page", page);
+        } else {
+            modelAndView.addObject("page", 1);
+        }
+        if (StringUtils.isNotEmpty(sname)) {
+            modelAndView.addObject("sname", "'"+sname+"'");
+        } else {
+            modelAndView.addObject("sname", "''");
+        }
+        if (StringUtils.isNotEmpty(pname)) {
+            modelAndView.addObject("pname", "'"+pname+"'");
+        } else {
+            modelAndView.addObject("pname", "''");
+        }
+        modelAndView.setViewName("admin/subjectInfo");
         return modelAndView;
     }
 
@@ -173,6 +217,21 @@ public class AdminController {
         }
         modelAndView.setViewName("admin/gradeInfo");
         return modelAndView;
+    }
+
+    //获取考生成绩列表
+    @RequestMapping(value="/api/getSubjectList", method= RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult getSubjectList(@RequestParam("subjectTitle") String subjectTitle, @RequestParam("paperName") String paperName,
+                                   @RequestParam("page") int page, @RequestParam("num") int num) {
+        AjaxResult ajaxResult = new AjaxResult();
+        try {
+            Map<String, Object> data = null;
+            return new AjaxResult().setData(data);
+        } catch (Exception e) {
+            LOG.info(e.getMessage(), e);
+        }
+        return new AjaxResult().setMessage("接口调用出错");
     }
 
     //获取考生成绩列表

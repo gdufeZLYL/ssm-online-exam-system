@@ -37,7 +37,7 @@
         </div>
         <div class="layui-row exam_title_remarks">
             <div class="layui-col-md12" style="border: 1px solid #FFFFFF">
-                (满分100分&nbsp;单选题50分&nbsp;多选题50分)
+                (满分100分&nbsp;单项选择题50分&nbsp;不定项选择题50分)
             </div>
         </div>
         <div class="layui-row exam_single_choice_head">
@@ -78,7 +78,7 @@
         </div>
         <div class="layui-row exam_double_choice_head">
             <div class="layui-col-md12" style="border: 1px solid #FFFFFF">
-                多项选择题(每小题10分,共5道)
+                不定项选择题(每小题10分,共5道)
             </div>
         </div>
         <div class="layui-row">

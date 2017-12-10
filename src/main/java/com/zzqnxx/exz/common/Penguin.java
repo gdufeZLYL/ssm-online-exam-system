@@ -11,4 +11,9 @@ public class Penguin {
     public final static String IDENTITY_STUDENT = "student";
     //教师
     public final static String IDENTITY_TEACHER = "teacher";
+
+    //单选题分数
+    public final static int SINGLE_SCORE = 2;
+    //不定项选择题
+    public final static int MUL_SCORE = 4;
 }
