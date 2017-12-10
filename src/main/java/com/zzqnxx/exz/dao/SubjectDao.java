@@ -65,4 +65,21 @@ public interface SubjectDao {
      */
     List<Subject> queryByTitle(@Param("title") String title, @Param("offset") int offset,
                                @Param("limit") int limit);
+
+    /**
+     * 分页模糊查询匹配题目的试题数量
+     * @param title
+     * @return
+     */
+    int queryCountByTitleAndPaperName(@Param("title") String title, @Param("paperName") String paperName);
+
+    /**
+     * 分页模糊查询匹配题目的试题
+     * @param title
+     * @param offset
+     * @param limit
+     * @return
+     */
+    List<Subject> queryByTitleAndPaperName(@Param("title") String title, @Param("paperName") String paperName,
+                                           @Param("offset") int offset, @Param("limit") int limit);
 }

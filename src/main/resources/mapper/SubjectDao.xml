@@ -69,4 +69,33 @@
         ORDER BY a.id
         LIMIT #{offset}, #{limit}
     </select>
+
+    <select id="queryCountByTitleAndPaperName" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM t_exam_subject a, t_exam_paper b
+        WHERE 1 = 1 AND a.paper_id = b.id
+        <if test="title != null and title != ''">
+            AND a.title LIKE CONCAT(CONCAT('%', #{title}), '%')
+        </if>
+        <if test="paperName != null and paperName != ''">
+            AND b.paper_name LIKE CONCAT(CONCAT('%', #{paperName}), '%')
+        </if>
+    </select>
+
+    <select id="queryByTitleAndPaperName" resultType="com.zzqnxx.exz.entity.Subject">
+        SELECT
+        a.id, a.title, a.option_a, a.option_b, a.option_c, a.option_d,
+        a.answer, a.parse, a.title_type, a.paper_id, a.create_time,
+        b.paper_name "paper.paperName"
+        FROM t_exam_subject a, t_exam_paper b
+        WHERE 1 = 1 AND a.paper_id = b.id
+        <if test="title != null and title != ''">
+            AND a.title LIKE CONCAT(CONCAT('%', #{title}), '%')
+        </if>
+        <if test="paperName != null and paperName != ''">
+            AND b.paper_name LIKE CONCAT(CONCAT('%', #{paperName}), '%')
+        </if>
+        LIMIT #{offset}, #{limit}
+    </select>
 </mapper>
