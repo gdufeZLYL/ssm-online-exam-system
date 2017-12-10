@@ -25,7 +25,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">在线考试系统</a>
+            <a class="navbar-brand" href="#">考试系统后台管理中心</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -65,7 +65,7 @@
             <input type="text" class="form-control" id="txt_subjectName" placeholder="考试题目">
             <label for="txt_paperName">试卷名称：</label>
             <input type="text" class="form-control" id="txt_paperName" placeholder="试卷名称">
-            <button type="button" class="btn btn-primary">查询</button>
+            <button type="button" class="btn btn-primary" onclick="querySubAction()">查询</button>
         </div>
         <div class="col-md-1">
         </div>
@@ -80,6 +80,7 @@
     </div>
     <div class="row">
         <table class="table table-hover table-bordered table-striped" id="t_subjectList">
+            <!--
             <thead>
                 <tr>
                     <th>#</th>
@@ -101,6 +102,7 @@
                     </th>
                 </tr>
             </tbody>
+            -->
         </table>
     </div>
     <div class="row">
@@ -148,7 +150,7 @@
                 </div>
                 <div class="form-group">
                     <label for="txt_add_titleType">题目类型</label>
-                    <select class="form-control" id="txt_add_titleType">
+                    <select class="form-control" id="txt_add_titleType" name="txt_add_titleType">
                         <option value="0">单项选择题</option>
                         <option value="1">不定项选择题</option>
                     </select>
@@ -160,13 +162,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>取消</button>
-                <button type="button" id="btn_addStu" class="btn btn-primary" onclick="addStudent()"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>确定添加</button>
+                <button type="button" id="btn_addStu" class="btn btn-primary" onclick="addSubject()"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>确定添加</button>
             </div>
         </div>
     </div>
 </div>
 <!-- 编辑试题模态框 -->
-<div class="modal fade" id="updateStuModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="updateSubModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -176,7 +178,7 @@
             <div class="modal-body">
                 <input type="hidden" name="txt_update_subId" id="txt_update_subId">
                 <div class="form-group">
-                    <label for="txt_update_title">题目</label>
+                    <label for="txt_update_title">题目描述</label>
                     <textarea name="txt_update_title" class="form-control" id="txt_update_title" placeholder="请输入题目" rows="4"></textarea>
                 </div>
                 <div class="form-group">
@@ -205,7 +207,7 @@
                 </div>
                 <div class="form-group">
                     <label for="txt_update_titleType">题目类型</label>
-                    <select class="form-control" id="txt_update_titleType">
+                    <select class="form-control" id="txt_update_titleType" name="txt_update_titleType">
                         <option value="0">单项选择题</option>
                         <option value="1">不定项选择题</option>
                     </select>
@@ -217,14 +219,14 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>取消</button>
-                <button type="button" id="btn_updateStu" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                <button type="button" id="btn_updateStu" class="btn btn-primary" onclick="updateSubject()"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
             </div>
         </div>
     </div>
 </div>
 <!-- 删除试题模态框 -->
 <div class='modal fade' id='delSubModal' >
-    <input type="hidden" id="txt_del_id">
+    <input type="hidden" id="txt_del_subId">
     <div class='modal-backdrop in' style='opacity:0; '></div>
     <div class='modal-dialog' style='z-index:2901; margin-top:60px; width:400px; '>
         <div class='modal-content'>
@@ -236,7 +238,7 @@
                 确定要删除这道题目吗？o(╥﹏╥)o
             </div>
             <div class='modal-footer ' style=''>
-                <button class='btn btn-success' id='delSubConfirm'>确定</button>
+                <button class='btn btn-success' id='delSubConfirm' onclick="delSubject()">确定</button>
                 <button class='btn btn-danger' data-dismiss='modal'>取消</button>
             </div>
         </div>
@@ -267,8 +269,8 @@
         currPage = ${page};
         $('#txt_subjectName').val(sname);
         $('#txt_paperName').val(pname);
-        //todo 初始化数据
-        //getStudentPageInfo();
+        //初始化数据
+        getSubjectPageInfo();
     });
 
 

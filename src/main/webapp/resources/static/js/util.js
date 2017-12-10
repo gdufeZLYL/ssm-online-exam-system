@@ -27,6 +27,15 @@ function formatNumber(n) {
     n = n.toString()
     return n[1] ? n : '0' + n
 }
+
+//判断是否是整数型
+function isInteger(n) {
+    if (!(/^\\d+$/.test(n))) {
+        return true;
+    } else {
+        return false;
+    }
+}
 //MD5加密
 function MD5(sMessage)
 {
