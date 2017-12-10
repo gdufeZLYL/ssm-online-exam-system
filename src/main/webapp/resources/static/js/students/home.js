@@ -80,7 +80,6 @@ function fillStudentInfo(stuIdMd5, studentName) {
 
 //填充公告信息
 function fillPostInfo(posts, postSize) {
-    console.log(posts);
     var postStr = '';
     for (var i = 0; i < postSize; i++) {
         if (i != postSize-1 && i%2 == 0) {

@@ -2,13 +2,11 @@ package com.zzqnxx.exz.web;
 
 import com.zzqnxx.exz.common.Penguin;
 import com.zzqnxx.exz.dto.AjaxResult;
+import com.zzqnxx.exz.entity.Post;
 import com.zzqnxx.exz.entity.Student;
 import com.zzqnxx.exz.entity.Subject;
 import com.zzqnxx.exz.entity.Teacher;
-import com.zzqnxx.exz.service.GradeService;
-import com.zzqnxx.exz.service.PaperService;
-import com.zzqnxx.exz.service.StudentService;
-import com.zzqnxx.exz.service.SubjectService;
+import com.zzqnxx.exz.service.*;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -19,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,6 +34,8 @@ public class AdminController {
     private SubjectService subjectService;
     @Autowired
     private PaperService paperService;
+    @Autowired
+    private PostService postService;
 
     @Autowired
     private HttpSession session;
@@ -249,6 +251,17 @@ public class AdminController {
         }
         modelAndView.setViewName("admin/gradeInfo");
         return modelAndView;
+    }
+
+    //获取公告列表
+    @RequestMapping(value="/api/getPosts", method= RequestMethod.GET)
+    @ResponseBody
+    public AjaxResult getPosts() {
+        List<Post> posts = postService.getPostList();
+        Map<String, Object> data = new HashMap<>();
+        data.put("posts", posts);
+        data.put("postSize", posts.size());
+        return new AjaxResult().setData(data);
     }
 
     //获取试题列表

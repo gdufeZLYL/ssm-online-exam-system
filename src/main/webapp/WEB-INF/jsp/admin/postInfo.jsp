@@ -57,19 +57,20 @@
         </div>
     </div>
     <div class="row" style="margin-bottom: 10px;">
-        <div class="col-md-9">
+        <div class="col-md-8">
 
         </div>
         <div class="col-md-1">
             <button type="button" class="btn btn-primary">添加公告</button>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
         </div>
     </div>
-    <div class="row" id="t_postList">
+    <div class="row">
         <div class="col-md-2">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8" id="t_postList">
+            <!--
             <div class="row" style="margin-bottom: 10px;">
                 <div class="col-md-12">
                     <div class="panel panel-info">
@@ -79,24 +80,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row" style="margin-bottom: 10px;">
-                <div class="col-md-12">
-                    <div class="panel panel-info">
-                        <div class="panel-heading" style="font-size: 20px;font-weight: bolder;">同学们注意了</div>
-                        <div class="panel-body" style="font-size: 15px;">10月21号（星期二）中午12:20~13：50在一教314进行全校14级新生的素拓考试，考试范围：学生手册218~228，开卷考。大家记得先吃饱饭，到时记得准时到达考场~</div>
-                        <div class="panel-footer" style="font-size: 12px;">沈永珞 发表于 2017-12-02 09:11:03</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-bottom: 10px;">
-                <div class="col-md-12">
-                    <div class="panel panel-info">
-                        <div class="panel-heading" style="font-size: 20px;font-weight: bolder;">同学们注意了</div>
-                        <div class="panel-body" style="font-size: 15px;">10月21号（星期二）中午12:20~13：50在一教314进行全校14级新生的素拓考试，考试范围：学生手册218~228，开卷考。大家记得先吃饱饭，到时记得准时到达考场~</div>
-                        <div class="panel-footer" style="font-size: 12px;">沈永珞 发表于 2017-12-02 09:11:03</div>
-                    </div>
-                </div>
-            </div>
+            -->
         </div>
         <div class="col-md-2">
         </div>
@@ -113,8 +97,23 @@
 <script type="text/javascript">
     toastr.options.positionClass = 'toast-top-center';
 
-    $(document).ready(function () {
+    var posts = [];
+    var postSize = 0;
 
+    $(document).ready(function () {
+        //获取数据
+        $.ajax({
+            type:"get",
+            async:false,
+            url:"/exam/admin/api/getPosts",
+            contentType: "application/x-www-form-urlencoded;charset=utf-8",
+            success:function(data){
+                postSize = data.data.postSize;
+                posts = data.data.posts;
+            }
+        });
+        //初始化数据
+        fillPostInfo(posts, postSize);
     });
 
 </script>
