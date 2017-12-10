@@ -6,6 +6,7 @@ import com.zzqnxx.exz.entity.Student;
 import com.zzqnxx.exz.entity.Teacher;
 import com.zzqnxx.exz.service.GradeService;
 import com.zzqnxx.exz.service.StudentService;
+import com.zzqnxx.exz.service.SubjectService;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -27,6 +28,8 @@ public class AdminController {
     private StudentService studentService;
     @Autowired
     private GradeService gradeService;
+    @Autowired
+    private SubjectService subjectService;
 
     @Autowired
     private HttpSession session;
@@ -219,14 +222,15 @@ public class AdminController {
         return modelAndView;
     }
 
-    //获取考生成绩列表
+    //获取试题列表
     @RequestMapping(value="/api/getSubjectList", method= RequestMethod.POST)
     @ResponseBody
     public AjaxResult getSubjectList(@RequestParam("subjectTitle") String subjectTitle, @RequestParam("paperName") String paperName,
                                    @RequestParam("page") int page, @RequestParam("num") int num) {
         AjaxResult ajaxResult = new AjaxResult();
         try {
-            Map<String, Object> data = null;
+            Map<String, Object> data = subjectService.getSbjsByTitleAndPaperName(subjectTitle,
+                    paperName, page, num);
             return new AjaxResult().setData(data);
         } catch (Exception e) {
             LOG.info(e.getMessage(), e);

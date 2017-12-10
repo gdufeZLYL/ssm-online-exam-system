@@ -3,6 +3,7 @@ package com.zzqnxx.exz.service;
 import com.zzqnxx.exz.entity.Subject;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SubjectService {
 
@@ -13,4 +14,14 @@ public interface SubjectService {
      * @return
      */
     List<Subject> getSbjsByPageIdAndType(int pageId, int titleType);
+
+    /**
+     * 分页获取所有试题列表信息
+     * @param title
+     * @param paperName
+     * @param page
+     * @param num
+     * @return
+     */
+    public Map<String, Object> getSbjsByTitleAndPaperName(String title, String paperName, int page, int num);
 }
