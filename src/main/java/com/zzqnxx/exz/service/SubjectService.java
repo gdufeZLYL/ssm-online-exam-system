@@ -24,4 +24,25 @@ public interface SubjectService {
      * @return
      */
     public Map<String, Object> getSbjsByTitleAndPaperName(String title, String paperName, int page, int num);
+
+    /**
+     * 增加试题
+     * @param subject
+     * @return
+     */
+    public int addSubject(Subject subject);
+
+    /**
+     * 更新试题
+     * @param subject
+     * @return
+     */
+    public int updateSubject(Subject subject);
+
+    /**
+     * 删除试题
+     * @param id
+     * @return
+     */
+    public int deleteSubject(int id);
 }

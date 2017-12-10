@@ -3,8 +3,10 @@ package com.zzqnxx.exz.web;
 import com.zzqnxx.exz.common.Penguin;
 import com.zzqnxx.exz.dto.AjaxResult;
 import com.zzqnxx.exz.entity.Student;
+import com.zzqnxx.exz.entity.Subject;
 import com.zzqnxx.exz.entity.Teacher;
 import com.zzqnxx.exz.service.GradeService;
+import com.zzqnxx.exz.service.PaperService;
 import com.zzqnxx.exz.service.StudentService;
 import com.zzqnxx.exz.service.SubjectService;
 import net.sf.json.JSONObject;
@@ -30,6 +32,8 @@ public class AdminController {
     private GradeService gradeService;
     @Autowired
     private SubjectService subjectService;
+    @Autowired
+    private PaperService paperService;
 
     @Autowired
     private HttpSession session;
@@ -238,14 +242,62 @@ public class AdminController {
         return new AjaxResult().setMessage("接口调用出错");
     }
 
+    //添加试题
+    @RequestMapping(value="/api/addSubject", method= RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult addSubject(@RequestBody Subject subject) {
+        AjaxResult ajaxResult = new AjaxResult();
+        try {
+            if (!paperService.isPaperIdExist(subject.getPaperId())) {
+                return ajaxResult.setMessage("不存在该试卷ID所对应的试卷");
+            }
+            int subjectId = subjectService.addSubject(subject);
+            return ajaxResult.setData(subjectId);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return ajaxResult.setMessage("接口调用出错");
+    }
+
+    //更新试题
+    @RequestMapping(value="/api/updateSubject", method= RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult updateSubject(@RequestBody Subject subject) {
+        AjaxResult ajaxResult = new AjaxResult();
+        try {
+            if (subject.getId() == 0) {
+                return ajaxResult.setMessage("试题ID不能为空!");
+            }
+            if (!paperService.isPaperIdExist(subject.getPaperId())) {
+                return ajaxResult.setMessage("不存在该试卷ID所对应的试卷");
+            }
+            int result = subjectService.updateSubject(subject);
+            return ajaxResult.setData(result);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return ajaxResult.setMessage("接口调用出错");
+    }
+
+    //删除试题
+    @DeleteMapping("/api/delSubject/{id}")
+    public AjaxResult deleteSubject(@PathVariable int id) {
+        AjaxResult ajaxResult = new AjaxResult();
+        try {
+            int result = subjectService.deleteSubject(id);
+            return ajaxResult.setData(result);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return ajaxResult.setMessage("接口调用出错");
+    }
+
     //获取考生成绩列表
     @RequestMapping(value="/api/getGradeList", method= RequestMethod.POST)
     @ResponseBody
     public AjaxResult getGradeList(@RequestParam("studentId") String studentId, @RequestParam("studentName") String studentName,
                                    @RequestParam("className") String className, @RequestParam("paperName") String paperName,
                                    @RequestParam("page") int page, @RequestParam("num") int num) {
-        LOG.info("page: " + page);
-        LOG.info("num: " + num);
         AjaxResult ajaxResult = new AjaxResult();
         try {
             Map<String, Object> data = gradeService.getAllGradeList(studentId, studentName, className,

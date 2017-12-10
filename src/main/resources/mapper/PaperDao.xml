@@ -47,4 +47,11 @@
         ORDER BY id
         LIMIT #{offset}, #{limit}
     </select>
+
+    <select id="checkPaperId" resultType="int">
+        SELECT
+        COUNT (1)
+        FROM t_exam_paper
+        WHERE id = #{paperId}
+    </select>
 </mapper>

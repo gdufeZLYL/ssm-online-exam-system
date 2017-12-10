@@ -14,4 +14,11 @@ public interface PaperService {
      * @return
      */
     public Map<String, Object> getPaperList(int page, int num);
+
+    /**
+     * 检查试卷ID是否存在
+     * @param paperId
+     * @return
+     */
+    public boolean isPaperIdExist(int paperId);
 }

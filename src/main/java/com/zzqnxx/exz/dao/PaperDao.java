@@ -49,4 +49,11 @@ public interface PaperDao {
      * @return
      */
     List<Paper> queryAll(@Param("offset") int offset, @Param("limit") int limit);
+
+    /**
+     * 检查该试卷ID是否存在
+     * @param paperId
+     * @return
+     */
+    int checkPaperId(@Param("paperId") int paperId);
 }

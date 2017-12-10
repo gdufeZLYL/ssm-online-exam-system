@@ -48,4 +48,10 @@ public class PaperServiceImpl implements PaperService {
         data.put("papers", papers);
         return data;
     }
+
+    @Override
+    public boolean isPaperIdExist(int paperId) {
+        int result = paperDao.checkPaperId(paperId);
+        return result >= 1;
+    }
 }

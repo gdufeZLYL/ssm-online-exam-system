@@ -1,5 +1,6 @@
 package com.zzqnxx.exz.service.impl;
 
+import com.zzqnxx.exz.dao.PaperDao;
 import com.zzqnxx.exz.dao.SubjectDao;
 import com.zzqnxx.exz.entity.Subject;
 import com.zzqnxx.exz.service.SubjectService;
@@ -59,5 +60,20 @@ public class SubjectServiceImpl implements SubjectService {
         data.put("allSize", count);
         data.put("subjects", subjects);
         return data;
+    }
+
+    @Override
+    public int addSubject(Subject subject) {
+        return subjectDao.insertSubject(subject);
+    }
+
+    @Override
+    public int updateSubject(Subject subject) {
+        return subjectDao.updateSubject(subject);
+    }
+
+    @Override
+    public int deleteSubject(int id) {
+        return subjectDao.deleteSubject(id);
     }
 }
