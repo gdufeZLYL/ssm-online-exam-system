@@ -61,7 +61,7 @@
 
         </div>
         <div class="col-md-1">
-            <button type="button" class="btn btn-primary">添加公告</button>
+            <button type="button" class="btn btn-primary" onclick="addPostAction()">添加公告</button>
         </div>
         <div class="col-md-3">
         </div>
@@ -86,6 +86,31 @@
         </div>
     </div>
 </div> <!-- /container -->
+<!-- 添加公告模态框 -->
+<div class="modal fade" id="addPostModel" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加公告</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txt_add_title">标题</label>
+                    <input type="text" name="txt_add_title" class="form-control" id="txt_add_title" placeholder="请输入公告标题">
+                </div>
+                <div class="form-group">
+                    <label for="txt_add_content">内容</label>
+                    <textarea name="txt_add_content" class="form-control" id="txt_add_content" placeholder="请输入公告内容" rows="8"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>取消</button>
+                <button type="button" id="btn_addPost" class="btn btn-primary" onclick="addPost()"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>确定添加</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- 引入JQuery -->
 <script src="/resources/static/js/util.js"></script>
 <script src="/resources/static/js/jquery-3.2.1.min.js"></script>
@@ -97,6 +122,8 @@
 <script type="text/javascript">
     toastr.options.positionClass = 'toast-top-center';
 
+    var adminJsonStr = ${admin};
+    var admin = JSON.parse(adminJsonStr);
     var posts = [];
     var postSize = 0;
 

@@ -11,4 +11,11 @@ public interface PostService {
      * @return
      */
     public List<Post> getPostList();
+
+    /**
+     * 添加公告
+     * @param post
+     * @return
+     */
+    public int addPost(Post post);
 }

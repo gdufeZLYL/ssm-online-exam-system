@@ -264,6 +264,20 @@ public class AdminController {
         return new AjaxResult().setData(data);
     }
 
+    //添加公告
+    @RequestMapping(value="/api/addPost", method= RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult addPost(@RequestBody Post post) {
+        AjaxResult ajaxResult = new AjaxResult();
+        try {
+            int postId = postService.addPost(post);
+            return ajaxResult.setData(postId);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return ajaxResult.setMessage("接口调用出错");
+    }
+
     //获取试题列表
     @RequestMapping(value="/api/getSubjectList", method= RequestMethod.POST)
     @ResponseBody
