@@ -62,10 +62,35 @@ public class AdminController {
             modelAndView.addObject("page", 1);
             modelAndView.addObject("sname", "''");
             modelAndView.addObject("pname", "''");
-            modelAndView.setViewName("admin/subjectInfo");
+            modelAndView.setViewName("admin/postInfo");
+//            modelAndView.setViewName("admin/subjectInfo");
 //            modelAndView.setViewName("admin/candidateInfo");
 //            modelAndView.setViewName("accounts/loginAdmin");
         }
+        return modelAndView;
+    }
+
+    //获取公告列表
+    @RequestMapping(value="/posts", method= RequestMethod.GET)
+    public ModelAndView posts(HttpServletRequest request) {
+        String identity = (String) session.getAttribute(Penguin.CURRENT_IDENTITY);
+        ModelAndView modelAndView = new ModelAndView();
+        if (identity == null) {
+            modelAndView.setViewName("accounts/loginAdmin");
+            return modelAndView;
+        } else if (!Penguin.IDENTITY_TEACHER.equals(identity)) {
+            Student student = (Student) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+            JSONObject stuJson = JSONObject.fromObject(student);
+            modelAndView.addObject("student", "'"+stuJson.toString()+"'");
+            modelAndView.setViewName("students/home");
+            return modelAndView;
+        }
+        Teacher teacher = (Teacher) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+        if (teacher != null) {
+            JSONObject teaJson = JSONObject.fromObject(teacher);
+            modelAndView.addObject("admin", "'"+teaJson.toString()+"'");
+        }
+        modelAndView.setViewName("admin/postInfo");
         return modelAndView;
     }
 

@@ -1,0 +1,15 @@
+body {
+    overflow: scroll;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.candidate-title {
+    text-align: center;
+    font-weight: bolder;
+    font-family: 华文琥珀;
+    font-size: 30px;
+    /*padding-left: 50%;*/
+}
