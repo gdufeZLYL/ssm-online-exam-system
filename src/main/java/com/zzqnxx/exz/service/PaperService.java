@@ -16,6 +16,16 @@ public interface PaperService {
     public Map<String, Object> getPaperList(int page, int num);
 
     /**
+     * 根据试卷编号和试卷名称分页获取试卷
+     * @param paperId
+     * @param paperName
+     * @param page
+     * @param num
+     * @return
+     */
+    public Map<String, Object> getPapersByIdAndName(String paperId, String paperName, int page, int num);
+
+    /**
      * 检查试卷ID是否存在
      * @param paperId
      * @return

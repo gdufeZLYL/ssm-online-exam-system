@@ -50,6 +50,38 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
+    public Map<String, Object> getPapersByIdAndName(String paperId, String paperName, int page, int num) {
+        int count = paperDao.queryCountByIdAndName(paperId, paperName);
+        Map<String, Object> data = new HashMap<>();
+        if (count == 0) {
+            data.put("pageNum", 0);
+            data.put("currPage", 0);
+            data.put("size", 0);
+            data.put("allSize", 0);
+            data.put("papers", new ArrayList<>());
+            return data;
+        }
+        int pageNum = count % num == 0 ? count / num : count / num + 1;
+        if (page > pageNum) {
+            //超出页数
+            data.put("pageNum", 0);
+            data.put("currPage", 0);
+            data.put("size", 0);
+            data.put("allSize", 0);
+            data.put("papers", new ArrayList<>());
+            return data;
+        }
+        List<Paper> papers = paperDao.queryByIdAndName(paperId, paperName,
+                num * (page - 1), num);
+        data.put("pageNum", pageNum);
+        data.put("currPage", page);
+        data.put("size", papers.size());
+        data.put("allSize", count);
+        data.put("papers", papers);
+        return data;
+    }
+
+    @Override
     public boolean isPaperIdExist(int paperId) {
         int result = paperDao.checkPaperId(paperId);
         return result >= 1;

@@ -140,6 +140,50 @@ public class AdminController {
         return modelAndView;
     }
 
+    //第几页试卷列表
+    @RequestMapping(value="/papers", method= RequestMethod.GET)
+    public ModelAndView papers(HttpServletRequest request) {
+        //获取参数
+        String page = request.getParameter("page");
+        String pid = request.getParameter("pid");
+        String pname = request.getParameter("pname");
+
+        String identity = (String) session.getAttribute(Penguin.CURRENT_IDENTITY);
+        ModelAndView modelAndView = new ModelAndView();
+        if (identity == null) {
+            modelAndView.setViewName("accounts/loginAdmin");
+            return modelAndView;
+        } else if (!Penguin.IDENTITY_TEACHER.equals(identity)) {
+            Student student = (Student) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+            JSONObject stuJson = JSONObject.fromObject(student);
+            modelAndView.addObject("student", "'"+stuJson.toString()+"'");
+            modelAndView.setViewName("students/home");
+            return modelAndView;
+        }
+        Teacher teacher = (Teacher) session.getAttribute(Penguin.CURRENT_ACCOUNT);
+        if (teacher != null) {
+            JSONObject teaJson = JSONObject.fromObject(teacher);
+            modelAndView.addObject("admin", "'"+teaJson.toString()+"'");
+        }
+        if (StringUtils.isNotEmpty(page)) {
+            modelAndView.addObject("page", page);
+        } else {
+            modelAndView.addObject("page", 1);
+        }
+        if (StringUtils.isNotEmpty(pid)) {
+            modelAndView.addObject("pid", "'"+pid+"'");
+        } else {
+            modelAndView.addObject("pid", "''");
+        }
+        if (StringUtils.isNotEmpty(pname)) {
+            modelAndView.addObject("pname", "'"+pname+"'");
+        } else {
+            modelAndView.addObject("pname", "''");
+        }
+        modelAndView.setViewName("admin/paperInfo");
+        return modelAndView;
+    }
+
     //第几页考生信息列表
     @RequestMapping(value="/candidates", method= RequestMethod.GET)
     public ModelAndView candidates(HttpServletRequest request) {
@@ -251,6 +295,21 @@ public class AdminController {
         }
         modelAndView.setViewName("admin/gradeInfo");
         return modelAndView;
+    }
+
+    //获取试卷列表
+    @RequestMapping(value="/api/getPapers", method= RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult getPapers(@RequestParam("paperId") String paperId, @RequestParam("paperName") String paperName,
+                                @RequestParam("page") int page, @RequestParam("num") int num) {
+        AjaxResult ajaxResult = new AjaxResult();
+        try {
+            Map<String, Object> data = paperService.getPapersByIdAndName(paperId, paperName, page, num);
+            return new AjaxResult().setData(data);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return ajaxResult.setMessage("接口调用出错");
     }
 
     //获取公告列表

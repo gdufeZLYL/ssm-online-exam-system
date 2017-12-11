@@ -54,4 +54,30 @@
         FROM t_exam_paper
         WHERE id = #{paperId}
     </select>
+
+    <select id="queryCountByIdAndName" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM t_exam_paper
+        WHERE 1 = 1
+        <if test="id != null and id != ''">
+          AND id = #{id}
+        </if>
+        <if test="paperName != null and paperName != ''">
+          AND paper_name LIKE CONCAT(CONCAT('%', #{paperName}), '%')
+        </if>
+    </select>
+
+    <select id="queryByIdAndName" resultType="com.zzqnxx.exz.entity.Paper">
+        SELECT
+        *
+        FROM t_exam_paper
+        WHERE 1 = 1
+        <if test="id != null and id != ''">
+            AND id = #{id}
+        </if>
+        <if test="paperName != null and paperName != ''">
+            AND paper_name LIKE CONCAT(CONCAT('%', #{paperName}), '%')
+        </if>
+    </select>
 </mapper>

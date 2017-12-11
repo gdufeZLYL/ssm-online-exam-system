@@ -2,6 +2,7 @@ package com.zzqnxx.exz.dao;
 
 import com.zzqnxx.exz.entity.Paper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -56,4 +57,21 @@ public interface PaperDao {
      * @return
      */
     int checkPaperId(@Param("paperId") int paperId);
+
+    /**
+     * 获取试卷数量
+     * @return
+     */
+    int queryCountByIdAndName(@Param("id") String id, @Param("paperName") String paperName);
+
+    /**
+     * 分页获取试卷信息
+     * @param id
+     * @param paperName
+     * @param offset
+     * @param limit
+     * @return
+     */
+    List<Paper> queryByIdAndName(@Param("id") String id, @Param("paperName") String paperName,
+                                 @Param("offset") int offset, @Param("limit") int limit);
 }
